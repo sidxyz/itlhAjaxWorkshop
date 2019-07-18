@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>
+	<button onClick="getData()">Fetch Some Data</button>
+
+	<script type="text/javascript">
+		function getData()
+		{
+			
+			fetch('https://jsonplaceholder.typicode.com/todos/1',
+			        {
+			          method: "GET"
+			        }
+			      ).then(response => response.json()).then(responseData => { alert(responseData);})
+			        .catch(err => 
+			        	{ console.log("add to cart api error ========>"+JSON.stringify(err));
+			        	}).done();
+
+			var root = 'http://fakerestapi.azurewebsites.net';
+			$.ajax({
+			    url: root + '/posts/1',
+			    method: 'GET'
+			}).then(function(data) {
+			    alert(data);
+			});        
+			    			
+		}
+		
+	</script>
+
+</body>
+</html>

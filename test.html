@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>workshop js intro</title>
+		<script src="jquery.js"></script>
+	</head>
+	<body>
+		<button onclick="addStudents()"> Add Student  </button>
+		<button onclick="getPosts()"> Get Students </button>
+		<div style="display:none;" id="studentsArea">
+			<h1>List of users below:</h1>
+			<div id="studentDetails">
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		function getPosts()
+		{
+			$.ajax(
+					{
+						url:'https://reqres.in/api/users',
+						method:'GET'
+					}).then(function(responseData){
+						
+						var studentAreaHtml = ``;
+						for(var i=0;i<responseData.data.length;i++)
+						{
+							var row = responseData.data[i];
+
+							 studentAreaHtml+= `
+						 	<p>Email :`+row.email+`</p>
+							<p>First Name :`+row.first_name+`</p>
+							<p>Last Name :`+row.last_name+`</p>
+							<p>User Image :<img src="`+row.avatar+`"> </p>	
+						 `;
+	
+						}
+						 
+						 $('#studentDetails').html(studentAreaHtml);
+						 document.querySelector('#studentsArea').style.display = 'block';
+
+					});
+			//alert("heyyy");
+		}
+
+		//same thing with fetch too
+		function addStudents()
+		{
+			// $.ajax({
+			// 	url:'https://reqres.in/api/users',
+			// 	method:'POST',
+			// 	data:{
+			// 		    "name": "dummyyy",
+			// 		    "job": "dummyyy"
+			// 		}
+			// }).then(function(responseData){
+			// 	//alert('data added successfully!');
+			// 	console.log(responseData);
+			// })
+			fetch('https://reqres.in/api/users',{method:"GET"}
+			    ).then(response => response.json())
+				 .then(responseData =>{alert('data added successfully!');})
+			     .catch(err =>{}).done();
+		}
+
+
+	</script>
+</html>
